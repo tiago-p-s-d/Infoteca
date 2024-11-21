@@ -1,0 +1,16 @@
+<div class="book-container">
+    <div *ngFor="let book of books" class="book-item" (click)="openBookDetails(book)">
+      <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do livro" class="book-cover" />
+    </div>
+  </div>
+  
+  <div class="modal" *ngIf="selectedBook" (click)="closeBookDetails()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeBookDetails()">&times;</span>
+      <img [src]="selectedBook.volumeInfo.imageLinks?.thumbnail" alt="Capa do livro" class="book-large-cover" />
+      <h2>{{ selectedBook.volumeInfo.title }}</h2>
+      <p><strong>Autor(es):</strong> {{ selectedBook.volumeInfo.authors?.join(', ') }}</p>
+      <p><strong>Sinopse:</strong> {{ selectedBook.volumeInfo.description }}</p>
+    </div>
+  </div>
+  
