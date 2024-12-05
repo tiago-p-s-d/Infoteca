@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { PesquisarComponent } from './componentes/pesquisar/pesquisar.component'
 import { BibliotecaComponent } from './componentes/biblioteca/biblioteca.component';
 import { RecomendadosComponent } from './componentes/recomendados/recomendados.component';
 import { ObterResenhasComponent } from './componentes/obter-resenhas/obter-resenhas.component';
+import { LoginComponent } from './componentes/login/login.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,14 @@ import { ObterResenhasComponent } from './componentes/obter-resenhas/obter-resen
     PesquisarComponent,
     BibliotecaComponent,
     RecomendadosComponent,
-    ObterResenhasComponent
+    ObterResenhasComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule  
   ],
   providers: [
     provideClientHydration()
