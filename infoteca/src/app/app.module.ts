@@ -12,6 +12,7 @@ import { BibliotecaComponent } from './componentes/biblioteca/biblioteca.compone
 import { RecomendadosComponent } from './componentes/recomendados/recomendados.component';
 import { ObterResenhasComponent } from './componentes/obter-resenhas/obter-resenhas.component';
 import { LoginComponent } from './componentes/login/login.component';
+import { CadastrarComponent } from './componentes/cadastrar/cadastrar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LoginComponent } from './componentes/login/login.component';
     BibliotecaComponent,
     RecomendadosComponent,
     ObterResenhasComponent,
-    LoginComponent
+    LoginComponent,
+    CadastrarComponent
   ],
   imports: [
     BrowserModule,

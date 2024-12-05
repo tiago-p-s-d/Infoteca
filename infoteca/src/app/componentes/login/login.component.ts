@@ -14,7 +14,7 @@ export class LoginComponent {
 
   constructor(private autenticar: AutenticarService, private router: Router ) {}
 
-  fazerLogin() {
+  /*fazerLogin() {
     this.autenticar.autenticar(this.email, this.senha).subscribe((autenticado) => {
       if (autenticado) {
         this.mensagem = 'Login realizado com sucesso!';
@@ -23,5 +23,19 @@ export class LoginComponent {
         this.mensagem = 'Email ou senha inválidos!';
       }
     });
-  }
+  }*/
+
+  fazerLogin() {
+    this.autenticar.autenticar(this.email, this.senha).subscribe((response) => {
+      const token = response.token;
+      if (token) {
+        // Armazenando o token no localStorage
+        localStorage.setItem('authToken', token); 
+        this.router.navigate(['/home']);  // Redireciona para a página /home
+      }
+    },error => {
+      console.error('Erro no login:', error);
+  });
+}
+
 }
