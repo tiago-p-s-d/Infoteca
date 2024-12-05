@@ -9,6 +9,7 @@ import { HeaderComponent } from './componentes/header/header.component';
 import { PesquisarComponent } from './componentes/pesquisar/pesquisar.component';
 import { BibliotecaComponent } from './componentes/biblioteca/biblioteca.component';
 import { RecomendadosComponent } from './componentes/recomendados/recomendados.component';
+import { ObterResenhasComponent } from './componentes/obter-resenhas/obter-resenhas.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { RecomendadosComponent } from './componentes/recomendados/recomendados.c
     HeaderComponent,
     PesquisarComponent,
     BibliotecaComponent,
-    RecomendadosComponent
+    RecomendadosComponent,
+    ObterResenhasComponent
   ],
   imports: [
     BrowserModule,

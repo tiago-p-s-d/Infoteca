@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ObterLivrosService } from '../../services/obter_livros/obter-livros.service';
+import { ObterResenhasService } from '../../services/obter_resenhas/obter-resenhas.service';
 
 @Component({
   selector: 'app-livros',
@@ -13,10 +14,12 @@ export class LivrosComponent {
   books: any[] = [];
   selectedBook: any;
   livros_visiveis: any[] = [];
+  resenhas: any[] = []; 
 
 
 
-  constructor(private obterService: ObterLivrosService) {}
+
+  constructor(private obterService: ObterLivrosService, private resenhaService: ObterResenhasService) {}
 
   ngOnInit(): void {
     this.carregarTodosLivros()
@@ -46,6 +49,11 @@ export class LivrosComponent {
   /*aqui abre o modal, e fecha o modal também*/
   openBookDetails(book: any): void {
     this.selectedBook = book;
+    window.alert(book.volumeInfo.industryIdentifiers[0].identifier);
+    this.resenhaService.obterResenhas(book.volumeInfo.industryIdentifiers[0].identifier)
+      .subscribe(respostas => {
+        this.resenhas = respostas;  // Armazena as resenhas retornadas
+      });
   }
   closeBookDetails(): void {
     this.selectedBook = null;

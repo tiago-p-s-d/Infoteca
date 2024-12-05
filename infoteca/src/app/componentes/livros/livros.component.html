@@ -14,5 +14,18 @@
     <h2>{{ selectedBook.volumeInfo.title }}</h2>
     <p><strong>Autor(es):</strong> {{ selectedBook.volumeInfo.authors?.join(', ') }}</p>
     <p><strong>Sinopse:</strong> {{ selectedBook.volumeInfo.description }}</p>
+
+     <!-- Exibição das resenhas -->
+     <div *ngIf="resenhas.length > 0">
+      <h3>Resenhas:</h3>
+      <div *ngFor="let resenha of resenhas">
+        <p><strong>{{ resenha.nome_usuario }}:</strong> {{ resenha.comentario }}</p>
+      </div>
+    </div>
+    <div *ngIf="resenhas.length === 0">
+      <p>Não há resenhas para este livro ainda.</p>
+    </div>
+
+    
   </div>
 </div>
