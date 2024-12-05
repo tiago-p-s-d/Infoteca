@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+  display: flex;
+
+  justify-content: flex-end;  /* Alinha os itens à direita */
+}
+
+.livros {
+  width: 80%;
+  display: flex;
+  padding: 4vw;
+
+
+}

@@ -6,12 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ObterLivrosService {
-  private apiUrl = 'https://www.googleapis.com/books/v1/volumes?q=bestseller&maxResults=40';
+  private urlAPI = 'https://www.googleapis.com/books/v1/volumes?q=';
 
   constructor(private http: HttpClient) {}
 
-  getBooks(): Observable<any> {
-    const url = `${this.apiUrl}`;
+  getLivro(genero:string): Observable<any> {
+    const url = `${this.urlAPI}${genero}&maxResults=40`;
+    return this.http.get(url);
+  }
+  getLivroPorGenero(genero:string): Observable<any> {
+    const url = `${this.urlAPI}subject:${genero}&maxResults=40`;
     return this.http.get(url);
   }
 }
