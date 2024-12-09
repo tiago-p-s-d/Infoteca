@@ -13,16 +13,7 @@ export class AutenticarService {
 
   constructor(private http: HttpClient) {}
 
-  /*autenticar(email: string, senha: string): Observable<boolean> {
-    return this.http.get<any[]>(this.apiUrl).pipe(
-      map((usuarios) => {
-        const usuario = usuarios.find(
-          (user) => user.email === email && user.senha === senha
-        );
-        return !!usuario; // Retorna true se encontrar o usuário
-      })
-    );
-  }*/
+
   autenticar(email: string, senha: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, senha });
   }

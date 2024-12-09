@@ -5,7 +5,12 @@ import { Router } from '@angular/router';
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   
-  // Verifique a presença do token no localStorage ou sessionStorage
+  // Verifique se estamos no ambiente do navegador
+  if (typeof window === 'undefined') {
+    return false; // Impede acesso no lado do servidor
+  }
+
+  // Verifique a presença do token no localStorage
   const token = localStorage.getItem('authToken');
   
   // Se não houver token, redirecione para a página de login

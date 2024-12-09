@@ -28,9 +28,11 @@ export class LoginComponent {
   fazerLogin() {
     this.autenticar.autenticar(this.email, this.senha).subscribe((response) => {
       const token = response.token;
-      if (token) {
+      const id_usuario = response.id_usuario;
+      if (token && id_usuario) {
         // Armazenando o token no localStorage
         localStorage.setItem('authToken', token); 
+        localStorage.setItem('id_usuario', id_usuario);
         this.router.navigate(['/home']);  // Redireciona para a página /home
       }
     },error => {

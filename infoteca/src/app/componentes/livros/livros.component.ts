@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ObterLivrosService } from '../../services/obter_livros/obter-livros.service';
 import { ObterResenhasService } from '../../services/obter_resenhas/obter-resenhas.service';
+import { EnviarResenhaService } from '../../services/enviarResenha/enviar-resenha.service';
 
 @Component({
   selector: 'app-livros',
@@ -15,8 +16,9 @@ export class LivrosComponent implements OnInit{
   selectedBook: any;
   livros_visiveis: any[] = [];
   resenhas: any[] = [];
+  novoComentario: string = '';
 
-  constructor(private obterService: ObterLivrosService, private resenhaService: ObterResenhasService) {}
+  constructor(private obterService: ObterLivrosService, private resenhaService: ObterResenhasService, private enviarResenhaService: EnviarResenhaService) {}
 
   ngOnInit(): void {
     this.carregarTodosLivros();
@@ -58,9 +60,12 @@ export class LivrosComponent implements OnInit{
   /*-----------------------------------------*/
 
 
+ 
 
   /*funções que estão no oninit (ativam ao carregar a página)*/
   carregarTodosLivros() {
+
+    /*
     if (this.genre == undefined) {
       this.obterService.getLivro('bestseller').subscribe((response) => {
         this.books = response.items;
@@ -86,7 +91,44 @@ export class LivrosComponent implements OnInit{
       });
       this.genero = 'de comedia';
     }
+
+    */
+
+
+
+
+
+    let observable;
+
+    // Define qual método usar com base no gênero
+    if (!this.genre) {
+      observable = this.obterService.getLivro('bestseller');
+      this.genero = 'best sellers';
+    } else {
+      observable = this.obterService.getLivroPorGenero(this.genre);
+      this.genero = `de ${this.traduzirGenero(this.genre)}`;
+    }
+
+    // Faz a chamada à API e processa os dados
+    observable.subscribe((response) => {
+      this.books = response.items || [];
+      this.carregarLivrosVisiveis(); // Carrega os livros visíveis
+    });
   }
+
+
+
+
+
+  traduzirGenero(genre: string): string {
+    const traducoes: { [key: string]: string } = {
+      horror: 'terror',
+      romance: 'romance',
+      comedy: 'comédia',
+    };
+    return traducoes[genre] || genre;
+  }
+  
 
    
 
@@ -95,5 +137,37 @@ export class LivrosComponent implements OnInit{
       this.livros_visiveis.push(this.books[x])
     }
   }
+
+  
+
+  
   /*---------------------------------------------------------*/
+
+
+
+
+  postarResenha(): void {
+    const idLivro = this.selectedBook.volumeInfo.industryIdentifiers[0].identifier; // ID do livro
+
+    const idUsuario_string = localStorage.getItem('id_usuario'); // ID usuario
+    let idUsuario: number;
+    const comentario = this.novoComentario;
+    if(idUsuario_string != null){
+      window.alert(idUsuario_string)
+    
+      idUsuario = +idUsuario_string
+
+    this.enviarResenhaService.postarResenha({ id_livro: idLivro, id_usuario: idUsuario, comentario }).subscribe(
+        (response) => {
+          alert('Resenha postada com sucesso!');
+          this.novoComentario = ''; // Limpa o campo de comentário
+          this.resenhas.push({ nome_usuario: 'Você', comentario }); // Adiciona a nova resenha localmente
+        },
+        (error) => {
+          console.error('Erro ao postar resenha:', error);
+          alert('Erro ao postar resenha. Tente novamente mais tarde.');
+        }
+      );
+  }
+}
 }

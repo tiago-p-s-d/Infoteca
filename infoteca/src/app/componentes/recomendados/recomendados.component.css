@@ -1,0 +1,24 @@
+/* Container principal */
+.container {
+    width: 80%; /* Define 80% da largura da tela */
+    height: 80%; /* Define 80% da altura da tela */
+    position: absolute; /* Permite o posicionamento com 'right' */
+    top: 10%; /* Centraliza verticalmente com base no restante dos 20% */
+    right: 0; /* Alinha o contêiner à direita */
+    overflow-y: auto; /* Ativa o scroll vertical */
+    border: 2px solid #ccc; /* Opcional: Adiciona uma borda para visualização */
+    padding: 10px; /* Espaçamento interno opcional */
+    box-sizing: border-box; /* Inclui padding e border no cálculo do tamanho */
+    background-color: #fff; /* Adiciona um fundo para diferenciar do resto da página */
+  }
+  
+  /* Estilização adicional para a página */
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: flex-start; /* Mantém os outros elementos alinhados à esquerda */
+  }
+  
