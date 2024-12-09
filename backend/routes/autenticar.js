@@ -64,7 +64,10 @@ router.post('/login', (req, res) => {
         { expiresIn: '1h' } // O token expira em 1 hora
       );
 
-      res.json({ token }); // Retorna o token para o cliente
+      res.json({ 
+        token,
+        id_usuario: usuario.id_usuario
+       }); // Retorna o token para o cliente
     });
   });
 });

@@ -31,4 +31,26 @@ router.get('/resenhas/:id_livro', (req, res) => {
   });
 });
 
+
+router.post('/resenhas/postar', (req, res) => {
+  const { id_livro, id_usuario, comentario } = req.body;
+
+  // Verifica se todos os dados necessários foram enviados
+  if (!id_livro || !id_usuario || !comentario) {
+    return res.status(400).send('Por favor, forneça id_livro, id_usuario e comentario.');
+  }
+
+  const query = 'INSERT INTO resenhas (id_livro, id_usuario, comentario) VALUES (?, ?, ?)';
+
+  pool.query(query, [id_livro, id_usuario, comentario], (err, results) => {
+    if (err) {
+      console.error('Erro ao inserir resenha: ', err);
+      res.status(500).send('Erro ao cadastrar a resenha.');
+    } else {
+      res.status(201).json({ message: 'Resenha cadastrada com sucesso!', resenhaId: results.insertId });
+    }
+  });
+});
+
+
 module.exports = router;

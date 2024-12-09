@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+/*const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 
@@ -32,3 +32,4 @@ exports.login = async (req, res) => {
     return res.status(500).json({ message: 'Erro no servidor' });
   }
 };
+*/
