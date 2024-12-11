@@ -10,9 +10,9 @@ import { HeaderComponent } from './componentes/header/header.component';
 import { PesquisarComponent } from './componentes/pesquisar/pesquisar.component';
 import { BibliotecaComponent } from './componentes/biblioteca/biblioteca.component';
 import { RecomendadosComponent } from './componentes/recomendados/recomendados.component';
-import { ObterResenhasComponent } from './componentes/obter-resenhas/obter-resenhas.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { CadastrarComponent } from './componentes/cadastrar/cadastrar.component';
+import { VerificarComponent } from './componentes/verificar/verificar.component';
 
 @NgModule({
   declarations: [
@@ -22,9 +22,9 @@ import { CadastrarComponent } from './componentes/cadastrar/cadastrar.component'
     PesquisarComponent,
     BibliotecaComponent,
     RecomendadosComponent,
-    ObterResenhasComponent,
     LoginComponent,
-    CadastrarComponent
+    CadastrarComponent,
+    VerificarComponent
   ],
   imports: [
     BrowserModule,

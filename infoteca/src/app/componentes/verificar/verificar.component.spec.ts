@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ObterResenhasComponent } from './obter-resenhas.component';
+import { VerificarComponent } from './verificar.component';
 
-describe('ObterResenhasComponent', () => {
-  let component: ObterResenhasComponent;
-  let fixture: ComponentFixture<ObterResenhasComponent>;
+describe('VerificarComponent', () => {
+  let component: VerificarComponent;
+  let fixture: ComponentFixture<VerificarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ObterResenhasComponent]
+      declarations: [VerificarComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ObterResenhasComponent);
+    fixture = TestBed.createComponent(VerificarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

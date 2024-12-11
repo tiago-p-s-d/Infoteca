@@ -1,0 +1,40 @@
+<div class="verificar-container">
+    <h2>Verifique seu e-mail</h2>
+  
+    <form (ngSubmit)="verificarCodigo()">
+      <div>
+        <label for="email">E-mail:</label>
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+          placeholder="Digite seu e-mail"
+        />
+      </div>
+  
+      <div>
+        <label for="codigo_verificacao">Código de Verificação:</label>
+        <input
+          id="codigo_verificacao"
+          type="text"
+          [(ngModel)]="codigo_verificacao"
+          name="codigo_verificacao"
+          required
+          placeholder="Digite o código enviado por e-mail"
+        />
+      </div>
+  
+      <button type="submit">Verificar</button>
+    </form>
+  
+    <!-- Mensagem de sucesso ou erro -->
+    <div *ngIf="message" class="success-message">
+      {{ message }}
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
+  

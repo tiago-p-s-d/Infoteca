@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AutenticarService } from '../../services/autenticar/autenticar.service';  // Serviço para registrar no backend
 
-
 @Component({
   selector: 'app-cadastrar',
   templateUrl: './cadastrar.component.html',
-  styleUrl: './cadastrar.component.css'
+  styleUrls: ['./cadastrar.component.css']
 })
 export class CadastrarComponent {
 
@@ -24,15 +23,18 @@ export class CadastrarComponent {
       senha: this.senha
     };
 
+    // Envia o novo usuário para o backend
     this.autenticarService.register(newUser).subscribe(
       (response) => {
-        console.log(response.message); 
-        this.mensagem = 'Usuário registrado com sucesso!';
-        this.router.navigate(['/login']); // Navega para a tela de login após o sucesso
+        console.log(response.message);  // Exibe mensagem de sucesso no console (para depuração)
+        this.mensagem = 'Usuário registrado com sucesso! Um e-mail com o código de verificação foi enviado para você.';
+        
+        // Redireciona para a página de verificação (onde o usuário pode inserir o código)
+        this.router.navigate(['/verificar']);
       },
       (error) => {
         this.mensagem = 'Erro ao registrar o usuário. Tente novamente.';
-        console.error(error);
+        console.error(error);  // Exibe o erro no console para depuração
       }
     );
   }
