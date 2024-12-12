@@ -14,6 +14,10 @@ export class LoginComponent {
 
   constructor(private autenticar: AutenticarService, private router: Router ) {}
 
+
+  teste(){
+    console.log('tá chamando o botao')
+  }
   /*fazerLogin() {
     this.autenticar.autenticar(this.email, this.senha).subscribe((autenticado) => {
       if (autenticado) {
