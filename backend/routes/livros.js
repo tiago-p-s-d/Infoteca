@@ -3,36 +3,34 @@ const router = express.Router();
 const pool = require('../utils/db'); // Importa o pool de conexões do db.js
 
 // Rota para obter todos os livros
-router.get('/livros', (req, res) => {
+router.get('/livros', async (req, res) => {
   const query = 'SELECT * FROM resenhas';
 
-  pool.query(query, (err, results) => {
-    if (err) {
-      console.error('Erro na consulta: ', err);
-      res.status(500).send('Erro ao buscar livros');
-    } else {
-      res.json(results);
-    }
-  });
+  try {
+    const [results] = await pool.query(query);
+    res.json(results);
+  } catch (err) {
+    console.error('Erro na consulta: ', err);
+    res.status(500).send('Erro ao buscar livros');
+  }
 });
 
 // Exemplo de outra rota para obter resenhas de um livro
-router.get('/resenhas/:id_livro', (req, res) => {
+router.get('/resenhas/:id_livro', async (req, res) => {
   const { id_livro } = req.params;
   const query = 'SELECT u.nome_usuario, r.comentario FROM resenhas r JOIN usuarios u ON r.id_usuario = u.id_usuario WHERE r.id_livro = ?';
 
-  pool.query(query, [id_livro], (err, results) => {
-    if (err) {
-      console.error('Erro na consulta: ', err);
-      res.status(500).send('Erro ao buscar resenhas');
-    } else {
-      res.json(results);
-    }
-  });
+  try {
+    const [results] = await pool.query(query, [id_livro]);
+    res.json(results);
+  } catch (err) {
+    console.error('Erro na consulta: ', err);
+    res.status(500).send('Erro ao buscar resenhas');
+  }
 });
 
-
-router.post('/resenhas/postar', (req, res) => {
+// Rota para postar uma resenha
+router.post('/resenhas/postar', async (req, res) => {
   const { id_livro, id_usuario, comentario } = req.body;
 
   // Verifica se todos os dados necessários foram enviados
@@ -42,15 +40,13 @@ router.post('/resenhas/postar', (req, res) => {
 
   const query = 'INSERT INTO resenhas (id_livro, id_usuario, comentario) VALUES (?, ?, ?)';
 
-  pool.query(query, [id_livro, id_usuario, comentario], (err, results) => {
-    if (err) {
-      console.error('Erro ao inserir resenha: ', err);
-      res.status(500).send('Erro ao cadastrar a resenha.');
-    } else {
-      res.status(201).json({ message: 'Resenha cadastrada com sucesso!', resenhaId: results.insertId });
-    }
-  });
+  try {
+    const [results] = await pool.query(query, [id_livro, id_usuario, comentario]);
+    res.status(201).json({ message: 'Resenha cadastrada com sucesso!', resenhaId: results.insertId });
+  } catch (err) {
+    console.error('Erro ao inserir resenha: ', err);
+    res.status(500).send('Erro ao cadastrar a resenha.');
+  }
 });
-
 
 module.exports = router;
