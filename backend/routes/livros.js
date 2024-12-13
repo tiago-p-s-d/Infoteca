@@ -49,4 +49,35 @@ router.post('/resenhas/postar', async (req, res) => {
   }
 });
 
+
+
+router.post('/status_do_livro/adicionar', async (req, res) => {
+  const { isbn, status, id_usuario } = req.body;
+
+  // Verifica se todos os dados necessários foram enviados
+  if (!isbn || !status || !id_usuario) {
+    return res.status(400).send('Por favor, forneça isbn, status e id_usuario.');
+  }
+
+  // Verifica se o status é válido (de acordo com a tabela de status)
+  const checkStatusQuery = 'SELECT * FROM status WHERE id_status = ?';
+  try {
+    const [statusResult] = await pool.query(checkStatusQuery, [status]);
+    if (statusResult.length === 0) {
+      return res.status(400).send('Status inválido.');
+    }
+
+    // Insere os dados na tabela status_do_livro
+    const query = 'INSERT INTO livro_status (isbn, id_status, id_usuario) VALUES (?, ?, ?)';
+    const [results] = await pool.query(query, [isbn, status, id_usuario]);
+
+    res.status(201).json({ message: 'Livro status atualizado com sucesso!', id: results.insertId });
+  } catch (err) {
+    console.error('Erro ao inserir no status_do_livro: ', err);
+    res.status(500).send('Erro ao atualizar o status do livro.');
+  }
+});
+
+
+
 module.exports = router;
