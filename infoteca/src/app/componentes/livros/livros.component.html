@@ -20,6 +20,7 @@
 <div class="modal" *ngIf="selectedBook" (click)="closeBookDetails()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <span class="close" (click)="closeBookDetails()">&times;</span>
+    <app-adicionar-status></app-adicionar-status>
     <img [src]="selectedBook.volumeInfo.imageLinks?.thumbnail" alt="Capa do livro" class="book-large-cover" />
     <h2>{{ selectedBook.volumeInfo.title }}</h2>
     <p><strong>Autor(es):</strong> {{ selectedBook.volumeInfo.authors?.join(', ') }}</p>

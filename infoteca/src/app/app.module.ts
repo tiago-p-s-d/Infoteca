@@ -13,6 +13,7 @@ import { RecomendadosComponent } from './componentes/recomendados/recomendados.c
 import { LoginComponent } from './componentes/login/login.component';
 import { CadastrarComponent } from './componentes/cadastrar/cadastrar.component';
 import { VerificarComponent } from './componentes/verificar/verificar.component';
+import { AdicionarStatusComponent } from './componentes/adicionar-status/adicionar-status.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { VerificarComponent } from './componentes/verificar/verificar.component'
     RecomendadosComponent,
     LoginComponent,
     CadastrarComponent,
-    VerificarComponent
+    VerificarComponent,
+    AdicionarStatusComponent
   ],
   imports: [
     BrowserModule,

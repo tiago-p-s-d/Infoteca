@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ObterLivrosService } from '../../services/obter_livros/obter-livros.service';
 import { ObterResenhasService } from '../../services/obter_resenhas/obter-resenhas.service';
 import { EnviarResenhaService } from '../../services/enviarResenha/enviar-resenha.service';
+import { SelecionarService } from '../../services/selecionar_livros/selecionar.service';
 
 @Component({
   selector: 'app-livros',
@@ -18,7 +19,7 @@ export class LivrosComponent implements OnInit{
   resenhas: any[] = [];
   novoComentario: string = '';
 
-  constructor(private obterService: ObterLivrosService, private resenhaService: ObterResenhasService, private enviarResenhaService: EnviarResenhaService) {}
+  constructor(private selecionar: SelecionarService ,private obterService: ObterLivrosService, private resenhaService: ObterResenhasService, private enviarResenhaService: EnviarResenhaService) {}
 
   ngOnInit(): void {
     this.carregarTodosLivros();
@@ -49,6 +50,7 @@ export class LivrosComponent implements OnInit{
   openBookDetails(book: any): void {
     this.selectedBook = book;
     window.alert(book.volumeInfo.industryIdentifiers[0].identifier);
+    this.selecionar.setSelectedBook(book);
     this.resenhaService.obterResenhas(book.volumeInfo.industryIdentifiers[0].identifier)
       .subscribe(respostas => {
         this.resenhas = respostas;  // Armazena as resenhas retornadas
