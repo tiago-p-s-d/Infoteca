@@ -1,0 +1,44 @@
+<div class="livros-body">
+  <div class="book-container">
+    <button class="seta fas fa-arrow-left" (click)="anterior()"></button>
+
+    <div *ngFor="let book of livros_visiveis" class="book-item" (click)="openBookDetails(book)">
+      <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do livro" class="book-cover" />
+      <p>{{ book.volumeInfo.title }}</p> <!-- Exibindo o título -->
+    </div>
+
+    <button class="seta fas fa-arrow-right" (click)="proximo()"></button>
+  </div>
+
+  <div class="modal" *ngIf="selectedBook" (click)="closeBookDetails()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeBookDetails()">&times;</span>
+      <app-adicionar-status></app-adicionar-status>
+      <img [src]="selectedBook.volumeInfo.imageLinks?.thumbnail" alt="Capa do livro" class="book-large-cover" />
+      <h2>{{ selectedBook.volumeInfo.title }}</h2>
+      <p><strong>Autor(es):</strong> {{ selectedBook.volumeInfo.authors?.join(', ') }}</p>
+      <p><strong>Sinopse:</strong> {{ selectedBook.volumeInfo.description }}</p>
+
+      <!-- Escrever resenhas -->
+      <div>
+        <h3>Adicionar Resenha</h3>
+        <textarea [(ngModel)]="novoComentario" placeholder="Escreva sua resenha aqui..." rows="3"></textarea>
+        <button (click)="postarResenha()">Enviar Resenha</button>
+      </div>
+
+      <!-- Exibição das resenhas -->
+      <div *ngIf="resenhas.length > 0">
+        <h3>Resenhas:</h3>
+        <div *ngFor="let resenha of resenhas" class="resenha-container">
+          <div class="resenha-box">
+            <p><strong>{{ resenha.nome_usuario }}:</strong></p>
+            <p>{{ resenha.comentario }}</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="resenhas.length === 0">
+        <p>Não há resenhas para este livro ainda.</p>
+      </div>
+    </div>
+  </div>
+</div>

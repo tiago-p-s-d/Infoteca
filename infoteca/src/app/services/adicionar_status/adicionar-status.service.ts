@@ -11,7 +11,7 @@ export class AdicionarStatusService {
 
   constructor(private http: HttpClient) {}
 
-  adicionarStatusDoLivro(isbn: string, status: number, id_usuario: number): Observable<any> {
-    return this.http.post<any>(this.apiUrl, { isbn, status, id_usuario });
+  adicionarStatusDoLivro(id: string, status: number, id_usuario: number): Observable<any> {
+    return this.http.post<any>(this.apiUrl, { id, status, id_usuario });
   }
 }

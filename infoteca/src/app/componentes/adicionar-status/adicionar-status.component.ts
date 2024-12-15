@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AdicionarStatusService } from '../../services/adicionar_status/adicionar-status.service';
 import { LivrosComponent } from '../livros/livros.component';
 import { SelecionarService } from '../../services/selecionar_livros/selecionar.service';
+import { ObterStatusService } from '../../services/obter_status/obter-status.service';
 
 @Component({
   selector: 'app-adicionar-status',
@@ -16,7 +17,7 @@ export class AdicionarStatusComponent implements OnInit{
   selectedStatusId: number | undefined = undefined; // Status selecionado
   id_usuario: number = +`${localStorage.getItem('id_usuario')}`
 
-  constructor(private statusLivroService: AdicionarStatusService,  private selecionado: SelecionarService) { }
+  constructor(private statusLivroService: AdicionarStatusService,  private selecionado: SelecionarService, private obterStatusService: ObterStatusService) { }
 
   ngOnInit(): void {
     this.selecionado.selectedBook$.subscribe((book) => {
@@ -39,10 +40,10 @@ export class AdicionarStatusComponent implements OnInit{
       return;
     }
 
-    const isbn = this.selectedBook.volumeInfo.industryIdentifiers[0].identifier;
+    const id = this.selectedBook.id;
     const id_usuario = +localStorage.getItem('id_usuario')!;
 
-    this.statusLivroService.adicionarStatusDoLivro(isbn, this.selectedStatusId, this.id_usuario).subscribe(
+    this.statusLivroService.adicionarStatusDoLivro(id, this.selectedStatusId, this.id_usuario).subscribe(
       (response) => {
         alert('Status do livro adicionado com sucesso!');
       },
@@ -53,23 +54,5 @@ export class AdicionarStatusComponent implements OnInit{
     );
   }
 
-/*
-  enviarStatus() {
-    if (!this.isbn || !this.status || !this.id_usuario) {
-      alert('Por favor, preencha todos os campos.');
-      return;
-    }
-
-    this.statusLivroService.adicionarStatusDoLivro(this.isbn, this.status, this.id_usuario).subscribe({
-      next: (response) => {
-        console.log('Status do livro atualizado com sucesso!', response);
-        alert(response.message);
-      },
-      error: (err) => {
-        console.error('Erro ao atualizar status do livro:', err);
-        alert('Erro ao atualizar o status do livro.');
-      }
-    });
-  }*/
 
 }

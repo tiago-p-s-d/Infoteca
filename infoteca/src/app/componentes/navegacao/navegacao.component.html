@@ -1,0 +1,11 @@
+<div class="status-list">
+  <h3>Escolha o Status:</h3>
+  <ul>
+    <li *ngFor="let status of statusList">
+      <!-- Exibe o nome do status como um link -->
+      <a (click)="onStatusClick(status)">
+        {{ status.nome }}
+      </a>
+    </li>
+  </ul>
+</div>

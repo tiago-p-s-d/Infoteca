@@ -14,6 +14,8 @@ import { LoginComponent } from './componentes/login/login.component';
 import { CadastrarComponent } from './componentes/cadastrar/cadastrar.component';
 import { VerificarComponent } from './componentes/verificar/verificar.component';
 import { AdicionarStatusComponent } from './componentes/adicionar-status/adicionar-status.component';
+import { StatusLivroComponent } from './componentes/status-livro/status-livro.component';
+import { NavegacaoComponent } from './componentes/navegacao/navegacao.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AdicionarStatusComponent } from './componentes/adicionar-status/adicion
     LoginComponent,
     CadastrarComponent,
     VerificarComponent,
-    AdicionarStatusComponent
+    AdicionarStatusComponent,
+    StatusLivroComponent,
+    NavegacaoComponent
   ],
   imports: [
     BrowserModule,

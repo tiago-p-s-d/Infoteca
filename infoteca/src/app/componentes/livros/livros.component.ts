@@ -49,9 +49,9 @@ export class LivrosComponent implements OnInit{
   /*aqui abre o modal, e fecha o modal também*/
   openBookDetails(book: any): void {
     this.selectedBook = book;
-    window.alert(book.volumeInfo.industryIdentifiers[0].identifier);
+    window.alert(book.id);
     this.selecionar.setSelectedBook(book);
-    this.resenhaService.obterResenhas(book.volumeInfo.industryIdentifiers[0].identifier)
+    this.resenhaService.obterResenhas(book.id)
       .subscribe(respostas => {
         this.resenhas = respostas;  // Armazena as resenhas retornadas
       });
@@ -62,43 +62,10 @@ export class LivrosComponent implements OnInit{
   /*-----------------------------------------*/
 
 
- 
+
 
   /*funções que estão no oninit (ativam ao carregar a página)*/
   carregarTodosLivros() {
-
-    /*
-    if (this.genre == undefined) {
-      this.obterService.getLivro('bestseller').subscribe((response) => {
-        this.books = response.items;
-         this.carregarLivrosVisiveis(); // Chama carregarLivrosVisiveis após os livros serem carregados
-      });
-      this.genero = 'best sellers';
-    } else if (this.genre == 'horror') {
-      this.obterService.getLivroPorGenero('horror').subscribe((response) => {
-        this.books = response.items;
-        this.carregarLivrosVisiveis(); // Chama carregarLivrosVisiveis após os livros de terror serem carregados
-      });
-      this.genero = 'de terror';
-    } else if (this.genre == 'romance') {
-      this.obterService.getLivroPorGenero('romance').subscribe((response) => {
-        this.books = response.items;
-        this.carregarLivrosVisiveis(); // Chama carregarLivrosVisiveis após os livros de romance serem carregados
-      });
-      this.genero = 'de romance';
-    } else if (this.genre == 'comedy') {
-      this.obterService.getLivroPorGenero('comedy').subscribe((response) => {
-        this.books = response.items;
-        this.carregarLivrosVisiveis(); // Chama carregarLivrosVisiveis após os livros de comédia serem carregados
-      });
-      this.genero = 'de comedia';
-    }
-
-    */
-
-
-
-
 
     let observable;
 
@@ -130,9 +97,9 @@ export class LivrosComponent implements OnInit{
     };
     return traducoes[genre] || genre;
   }
-  
 
-   
+
+
 
   carregarLivrosVisiveis(){
     for(let x = 0; this.livros_visiveis.length < 8 && x < this.books.length; x++){
@@ -140,23 +107,25 @@ export class LivrosComponent implements OnInit{
     }
   }
 
-  
 
-  
+
+
   /*---------------------------------------------------------*/
 
 
 
 
   postarResenha(): void {
-    const idLivro = this.selectedBook.volumeInfo.industryIdentifiers[0].identifier; // ID do livro
+    const idLivro = this.selectedBook.id; // ID do livro
 
+    window.alert('teste')
+    window.alert(idLivro)
     const idUsuario_string = localStorage.getItem('id_usuario'); // ID usuario
     let idUsuario: number;
     const comentario = this.novoComentario;
     if(idUsuario_string != null){
       window.alert(idUsuario_string)
-    
+
       idUsuario = +idUsuario_string
 
     this.enviarResenhaService.postarResenha({ id_livro: idLivro, id_usuario: idUsuario, comentario }).subscribe(

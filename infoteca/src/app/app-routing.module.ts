@@ -8,6 +8,7 @@ import { authGuard } from './guard/auth.guard';
 import { CadastrarComponent } from './componentes/cadastrar/cadastrar.component';
 import { VerificarComponent } from './componentes/verificar/verificar.component';
 import { AdicionarStatusComponent } from './componentes/adicionar-status/adicionar-status.component';
+import { StatusLivroComponent } from './componentes/status-livro/status-livro.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,7 +17,9 @@ const routes: Routes = [
   {path: 'cadastrar', component: CadastrarComponent},
   {path: 'home', component: RecomendadosComponent, canActivate: [authGuard]},
   {path: 'pesquisar', component: PesquisarComponent , canActivate: [authGuard]},
-  {path: 'adicionar_status', component: AdicionarStatusComponent, canActivate: [authGuard]}
+  {path: 'adicionar_status', component: AdicionarStatusComponent, canActivate: [authGuard]},
+  {path: 'status', component: StatusLivroComponent, canActivate: [authGuard]},
+
 
 ];
 
