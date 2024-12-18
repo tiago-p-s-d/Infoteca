@@ -1,9 +1,8 @@
-<div *ngIf="selectedBook">
+<div *ngIf="livro_selecionado">
     <label for="statusSelect">Escolha um Status:</label>
     <select id="statusSelect" [(ngModel)]="selectedStatusId">
       <option *ngFor="let status of statusOptions" [value]="status.id">{{ status.nome }}</option>
     </select>
-  
+
     <button (click)="salvarStatusLivro()">Salvar Status</button>
   </div>
-  

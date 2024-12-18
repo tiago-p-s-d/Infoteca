@@ -28,9 +28,10 @@ export class CadastrarComponent {
       (response) => {
         console.log(response.message);  // Exibe mensagem de sucesso no console (para depuração)
         this.mensagem = 'Usuário registrado com sucesso! Um e-mail com o código de verificação foi enviado para você.';
-        
+
         // Redireciona para a página de verificação (onde o usuário pode inserir o código)
         this.router.navigate(['/verificar']);
+        
       },
       (error) => {
         this.mensagem = 'Erro ao registrar o usuário. Tente novamente.';

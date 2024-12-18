@@ -25,14 +25,32 @@ export class NavegacaoComponent {
       }
     );
   }
+  modalVisible = false;
+
+ pesquisar(){
+  this.router.navigate(['/pesquisar']);  
+}
+
+  // Fecha o modal
+  closeModal(): void {
+    this.modalVisible = false;
+  }
+
+  // Alterna a visibilidade do modal ao clicar no menu hamburguer
+  toggleModal(): void {
+    this.modalVisible = !this.modalVisible;
+
+  }
+
+
+
+
+
 
   // Função que será chamada ao clicar em um status
   onStatusClick(status: any): void {
     const id_status = status.id_status;
-  console.log(`Status selecionado: ${id_status}`);
-
-  // Atualiza o localStorage
-  localStorage.setItem('id_status', `${id_status}`);
+    localStorage.setItem('id_status', `${id_status}`);
 
   // Força a navegação para a mesma rota
   this.router.navigateByUrl('/status').then(() => {
@@ -40,4 +58,7 @@ export class NavegacaoComponent {
     window.location.reload();  // Recarrega a página inteira
   });
 }
+
+
+
 }

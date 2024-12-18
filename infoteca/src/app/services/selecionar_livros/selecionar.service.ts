@@ -6,18 +6,18 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SelecionarService {
  // Usando BehaviorSubject para gerenciar o estado do livro selecionado
- private selectedBookSource = new BehaviorSubject<any>(null);
- selectedBook$ = this.selectedBookSource.asObservable();
+ private livroSelecionadoSource = new BehaviorSubject<any>(null);
+ livroSelecionado$ = this.livroSelecionadoSource.asObservable();
 
  constructor() {}
 
  // Método para atualizar o livro selecionado
- setSelectedBook(book: any): void {
-   this.selectedBookSource.next(book);
+ setLivroSelecionado(book: any): void {
+   this.livroSelecionadoSource.next(book);
  }
 
  // Método para obter o livro selecionado
- getSelectedBook(): any {
-   return this.selectedBookSource.getValue();
+ getLivroSelecionado(): any {
+   return this.livroSelecionadoSource.getValue();
  }
 }

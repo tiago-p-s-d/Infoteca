@@ -7,66 +7,92 @@ import { SelecionarService } from '../../services/selecionar_livros/selecionar.s
 @Component({
   selector: 'app-livros',
   templateUrl: './livros.component.html',
-  styleUrl: './livros.component.css'
+  styleUrls: ['./livros.component.css']
 })
-export class LivrosComponent implements OnInit{
+export class LivrosComponent implements OnInit {
   @Input() genre: string | undefined = undefined;
   genero: string = '';
 
   books: any[] = [];
-  selectedBook: any;
+  livroSelecionado: any;
   livros_visiveis: any[] = [];
   resenhas: any[] = [];
   novoComentario: string = '';
+  livrosVisiveisCount: number = 8; // Número inicial de livros visíveis
 
-  constructor(private selecionar: SelecionarService ,private obterService: ObterLivrosService, private resenhaService: ObterResenhasService, private enviarResenhaService: EnviarResenhaService) {}
+  constructor(
+    private selecionar: SelecionarService,
+    private obterService: ObterLivrosService,
+    private resenhaService: ObterResenhasService,
+    private enviarResenhaService: EnviarResenhaService
+  ) {}
 
   ngOnInit(): void {
     this.carregarTodosLivros();
-
+    this.adaptarQuantidadeLivros(); // Ajustar a quantidade de livros ao carregar a página
+    window.addEventListener('resize', this.adaptarQuantidadeLivros.bind(this)); // Adicionar evento de resize
   }
 
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.adaptarQuantidadeLivros.bind(this)); // Limpar o evento de resize
+  }
 
+  adaptarQuantidadeLivros(): void {
+    const larguraTela = window.innerWidth;
+    if (larguraTela <= 400) {
+      this.livrosVisiveisCount = 1; // Em telas pequenas, mostrar 1 livro
+    } else if (larguraTela <= 600) {
+      this.livrosVisiveisCount = 3; // Em telas médias, mostrar 3 livros
+    } else {
+      this.livrosVisiveisCount = 8; // Em telas grandes, mostrar 8 livros
+    }
 
-  /* */
-  proximo(){
+    // Após ajustar o número de livros visíveis, recarregar os livros visíveis
+    this.carregarLivrosVisiveis();
+  }
+
+  proximo(): void {
     if (this.books.length > 0) {
-      // Remove o primeiro elemento visível e adiciona o próximo da lista
-      const primeiro = this.livros_visiveis.shift(); // Remove o primeiro
-      const proximoIndex = (this.books.indexOf(this.livros_visiveis[this.livros_visiveis.length - 1]) + 1) % this.books.length;
-      this.livros_visiveis.push(this.books[proximoIndex]); // Adiciona o próximo
+      // Remover os livros visíveis atuais
+      const novosLivros = this.books.slice(
+        this.books.indexOf(this.livros_visiveis[this.livros_visiveis.length - 1]) + 1,
+        this.books.indexOf(this.livros_visiveis[this.livros_visiveis.length - 1]) + 1 + this.livrosVisiveisCount
+      );
+
+      // Adicionar os próximos livros
+      this.livros_visiveis.push(...novosLivros);
+      // Remover livros do início do array até atingir o tamanho desejado
+      this.livros_visiveis.splice(0, novosLivros.length);
     }
   }
-  anterior(){
+  anterior(): void {
     if (this.books.length > 0) {
-      // Remove o último elemento visível e insere o anterior no início
-      const ultimo = this.livros_visiveis.pop(); // Remove o último
-      const anteriorIndex = (this.books.indexOf(this.livros_visiveis[0]) - 1 + this.books.length) % this.books.length;
-      this.livros_visiveis.unshift(this.books[anteriorIndex]); // Adiciona o anterior no início
+      // Remover os livros visíveis atuais
+      const novosLivros = this.books.slice(
+        this.books.indexOf(this.livros_visiveis[0]) - this.livrosVisiveisCount,
+        this.books.indexOf(this.livros_visiveis[0])
+      );
+
+      // Adicionar os livros anteriores
+      this.livros_visiveis.unshift(...novosLivros);
+      // Remover livros do final do array até atingir o tamanho desejado
+      this.livros_visiveis.splice(this.livros_visiveis.length - novosLivros.length, novosLivros.length);
     }
   }
-  /* */
-  /*aqui abre o modal, e fecha o modal também*/
-  openBookDetails(book: any): void {
-    this.selectedBook = book;
-    window.alert(book.id);
-    this.selecionar.setSelectedBook(book);
-    this.resenhaService.obterResenhas(book.id)
-      .subscribe(respostas => {
-        this.resenhas = respostas;  // Armazena as resenhas retornadas
-      });
+
+  abrirLivro(book: any): void {
+    this.livroSelecionado = book;
+    this.selecionar.setLivroSelecionado(book);
+    this.resenhaService.obterResenhas(book.id).subscribe(respostas => {
+      this.resenhas = respostas; // Armazena as resenhas retornadas
+    });
   }
-  closeBookDetails(): void {
-    this.selectedBook = null;
+
+  fecharLivro(): void {
+    this.livroSelecionado = null;
   }
-  /*-----------------------------------------*/
 
-
-
-
-  /*funções que estão no oninit (ativam ao carregar a página)*/
-  carregarTodosLivros() {
-
+  carregarTodosLivros(): void {
     let observable;
 
     // Define qual método usar com base no gênero
@@ -85,10 +111,6 @@ export class LivrosComponent implements OnInit{
     });
   }
 
-
-
-
-
   traduzirGenero(genre: string): string {
     const traducoes: { [key: string]: string } = {
       horror: 'terror',
@@ -98,37 +120,23 @@ export class LivrosComponent implements OnInit{
     return traducoes[genre] || genre;
   }
 
-
-
-
-  carregarLivrosVisiveis(){
-    for(let x = 0; this.livros_visiveis.length < 8 && x < this.books.length; x++){
-      this.livros_visiveis.push(this.books[x])
+  carregarLivrosVisiveis(): void {
+    // Limita o número de livros visíveis de acordo com a largura da tela
+    this.livros_visiveis = [];
+    for (let x = 0; this.livros_visiveis.length < this.livrosVisiveisCount && x < this.books.length; x++) {
+      this.livros_visiveis.push(this.books[x]);
     }
   }
 
-
-
-
-  /*---------------------------------------------------------*/
-
-
-
-
   postarResenha(): void {
-    const idLivro = this.selectedBook.id; // ID do livro
-
-    window.alert('teste')
-    window.alert(idLivro)
-    const idUsuario_string = localStorage.getItem('id_usuario'); // ID usuario
+    const idLivro = this.livroSelecionado.id; // ID do livro
+    const idUsuario_string = localStorage.getItem('id_usuario'); // ID usuário
     let idUsuario: number;
     const comentario = this.novoComentario;
-    if(idUsuario_string != null){
-      window.alert(idUsuario_string)
+    if (idUsuario_string != null) {
+      idUsuario = +idUsuario_string;
 
-      idUsuario = +idUsuario_string
-
-    this.enviarResenhaService.postarResenha({ id_livro: idLivro, id_usuario: idUsuario, comentario }).subscribe(
+      this.enviarResenhaService.postarResenha({ id_livro: idLivro, id_usuario: idUsuario, comentario }).subscribe(
         (response) => {
           alert('Resenha postada com sucesso!');
           this.novoComentario = ''; // Limpa o campo de comentário
@@ -139,6 +147,6 @@ export class LivrosComponent implements OnInit{
           alert('Erro ao postar resenha. Tente novamente mais tarde.');
         }
       );
+    }
   }
-}
 }

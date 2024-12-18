@@ -1,15 +1,18 @@
+
+
+
 <div class="livros-body">
 
 <p>Livros {{genero}}</p>
 
 <div class="book-container">
-  
+
   <button class="seta fas fa-arrow-left" (click)="anterior()"></button>
-  
-  <div *ngFor="let book of livros_visiveis" class="book-item" (click)="openBookDetails(book)">
+
+  <div *ngFor="let book of livros_visiveis" class="book-item" (click)="abrirLivro(book)">
     <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do livro" class="book-cover" />
   </div>
-  
+
   <button class="seta fas fa-arrow-right" (click)="proximo()"></button>
 </div>
 
@@ -17,14 +20,14 @@
 
 
 
-<div class="modal" *ngIf="selectedBook" (click)="closeBookDetails()">
+<div class="modal" *ngIf="livroSelecionado" (click)="fecharLivro()">
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <span class="close" (click)="closeBookDetails()">&times;</span>
+    <span class="close" (click)="fecharLivro()">&times;</span>
     <app-adicionar-status></app-adicionar-status>
-    <img [src]="selectedBook.volumeInfo.imageLinks?.thumbnail" alt="Capa do livro" class="book-large-cover" />
-    <h2>{{ selectedBook.volumeInfo.title }}</h2>
-    <p><strong>Autor(es):</strong> {{ selectedBook.volumeInfo.authors?.join(', ') }}</p>
-    <p><strong>Sinopse:</strong> {{ selectedBook.volumeInfo.description }}</p>
+    <img [src]="livroSelecionado.volumeInfo.imageLinks?.thumbnail" alt="Capa do livro" class="book-large-cover" />
+    <h2>{{ livroSelecionado.volumeInfo.title }}</h2>
+    <p><strong>Autor(es):</strong> {{ livroSelecionado.volumeInfo.authors?.join(', ') }}</p>
+    <p><strong>Sinopse:</strong> {{ livroSelecionado.volumeInfo.description }}</p>
 
 
 

@@ -83,7 +83,7 @@ export class StatusLivroComponent implements OnInit {
 
   openBookDetails(book: any): void {
     this.selectedBook = book;
-    this.selecionar.setSelectedBook(book);
+    this.selecionar.setLivroSelecionado(book);
     this.resenhaService.obterResenhas(book.id)
       .subscribe(respostas => {
         this.resenhas = respostas;  // Armazena as resenhas retornadas

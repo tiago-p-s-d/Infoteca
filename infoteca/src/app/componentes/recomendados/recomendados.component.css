@@ -1,24 +1,54 @@
 /* Container principal */
+.body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; /* Coloca os elementos em coluna (app-navegacao no topo e container abaixo) */
+}
+.body2{
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header{
+  width: 100vw;
+
+}
+
+.app-navegacao {
+  /* Ajuste do app-navegacao */
+  width: 100%;
+  height: 60px; /* Define a altura do cabeçalho */
+  background-color: #333; /* Cor de fundo do cabeçalho */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
 .container {
-    width: 80%; /* Define 80% da largura da tela */
-    height: 80%; /* Define 80% da altura da tela */
-    position: absolute; /* Permite o posicionamento com 'right' */
-    top: 10%; /* Centraliza verticalmente com base no restante dos 20% */
-    right: 0; /* Alinha o contêiner à direita */
-    overflow-y: auto; /* Ativa o scroll vertical */
-    border: 2px solid #ccc; /* Opcional: Adiciona uma borda para visualização */
-    padding: 10px; /* Espaçamento interno opcional */
-    box-sizing: border-box; /* Inclui padding e border no cálculo do tamanho */
-    background-color: #fff; /* Adiciona um fundo para diferenciar do resto da página */
+  width: 80%;
+  height: calc(100vh - 60px); /* Ajusta a altura do container para ocupar o restante da tela */
+  overflow-y: auto;
+  border: 2px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #fff;
+  margin-top: 20px;
+  position: relative;
+}
+
+/* Responsividade */
+@media (max-width: 769px) {
+  .container {
+    width: 100%;
+    height: calc(100vh - 60px); /* Ajusta para ocupar o restante da tela em dispositivos móveis */
   }
-  
-  /* Estilização adicional para a página */
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: flex-start; /* Mantém os outros elementos alinhados à esquerda */
+
+  .app-navegacao {
+    height: 60px; /* Ajuste da altura do cabeçalho em telas menores */
   }
-  
+}

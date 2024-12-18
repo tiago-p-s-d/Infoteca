@@ -21,7 +21,10 @@ export class AutenticarService {
     localStorage.setItem('token', token); // Salva o token no localStorage
   }
   obterToken(): string | null {
-    return localStorage.getItem('token'); // Recupera o token do localStorage
+    if (typeof window !== 'undefined' && localStorage) {
+      return localStorage.getItem('token'); // Recupera o token do localStorage
+    }
+    return null; // Retorna null se localStorage não estiver disponível
   }
   limparToken(): void {
     localStorage.removeItem('token'); // Limpa o token do localStorage

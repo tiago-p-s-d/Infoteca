@@ -1,1 +1,53 @@
-<p>pesquisar works!</p>
+<div class="barra-pesquisa">
+  <input type="text" [(ngModel)]="queryNome" placeholder="Nome do livro" />
+  <input type="text" [(ngModel)]="queryAutor" placeholder="Autor" />
+  <input type="text" [(ngModel)]="queryData" placeholder="Ano de lançamento" />
+  <input type="text" [(ngModel)]="queryGenero" placeholder="Gênero" />
+  <button (click)="buscarLivros()">Buscar</button>
+</div>
+
+<div class="livros-body" *ngIf="livros.length > 0">
+  <p>Resultados da Pesquisa:</p>
+  <div class="book-container">
+    <button class="seta fas fa-arrow-left" (click)="anterior()"></button>
+
+    <div *ngFor="let book of livros_visiveis" class="book-item" (click)="abrirLivro(book)">
+      <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="Capa do livro" class="book-cover" />
+    </div>
+
+    <button class="seta fas fa-arrow-right" (click)="proximo()"></button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" *ngIf="livroSelecionado" (click)="fecharLivro()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close" (click)="fecharLivro()">&times;</span>
+    <app-adicionar-status></app-adicionar-status>
+    <img [src]="livroSelecionado.volumeInfo.imageLinks?.thumbnail" alt="Capa do livro" class="book-large-cover" />
+    <h2>{{ livroSelecionado.volumeInfo.title }}</h2>
+    <p><strong>Autor(es):</strong> {{ livroSelecionado.volumeInfo.authors?.join(', ') }}</p>
+    <p><strong>Sinopse:</strong> {{ livroSelecionado.volumeInfo.description }}</p>
+
+    <!-- Resenha -->
+    <div>
+      <h3>Adicionar Resenha</h3>
+      <textarea [(ngModel)]="novoComentario" placeholder="Escreva sua resenha aqui..." rows="3"></textarea>
+      <button (click)="postarResenha()">Enviar Resenha</button>
+    </div>
+
+    <!-- Exibição das resenhas -->
+    <div *ngIf="resenhas.length > 0">
+      <h3>Resenhas:</h3>
+      <div *ngFor="let resenha of resenhas" class="resenha-container">
+        <div class="resenha-box">
+          <p><strong>{{ resenha.nome_usuario }}:</strong></p>
+          <p>{{ resenha.comentario }}</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="resenhas.length === 0">
+      <p>Não há resenhas para este livro ainda.</p>
+    </div>
+  </div>
+</div>

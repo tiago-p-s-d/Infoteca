@@ -1,0 +1,169 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+
+
+.modal.show {
+  display: block; /* Exibe o modal quando ativo */
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 90%; /* Ajusta o tamanho do modal em telas pequenas */
+}
+
+
+/* Estilos do menu hamburguer fixo no topo */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  position: relative; /* Necessário para o layout do menu */
+}
+
+.hamburger-menu {
+  display: flex; /* Sempre visível */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.hamburger-menu .bar {
+  height: 4px;
+  width: 100%;
+  background-color: white;
+}
+
+/* Estilos do botão "Pesquisar Livros" */
+button {
+  padding: 8px 20px;
+  background-color: transparent; /* Torna o fundo transparente */
+  color: #ffffff; /* Cor do texto branco */
+  font-size: 16px;
+  border: 2px solid #ffffff; /* Borda branca */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, color 0.3s, border-color 0.3s;
+}
+
+button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #4CAF50; /* Verde quando passar o mouse */
+  border-color: #4CAF50;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #45a049;
+  border-color: #45a049;
+  transform: scale(0.98);
+}
+
+/* Estilos do modal */
+.modal {
+  display: none; /* Inicialmente oculto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo semitransparente */
+  z-index: 1000;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centraliza o conteúdo */
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 300px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* Lista dentro do modal */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+ul li a:hover {
+  background-color: #ddd;
+}
+
+/* Responsividade: Menu hambúrguer sempre visível */
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 15px; /* Ajusta o padding para telas pequenas */
+  }
+
+  /* O menu hambúrguer continua visível em dispositivos pequenos */
+  .hamburger-menu {
+    display: flex; /* Sempre visível */
+  }
+
+  .modal.show {
+    display: block; /* Exibe o modal quando ativo */
+  }
+
+  .modal-content {
+    width: 80%;
+    max-width: 90%; /* Ajusta o tamanho do modal em telas pequenas */
+  }
+
+  /* Ajusta o estilo do botão "Pesquisar Livros" para telas menores */
+  button {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px; /* Aumenta o tamanho da fonte para facilitar a leitura */
+  }
+}
+
+
+
+
+
+
+@media (min-width: 769px) {
+  /* Em telas grandes, o hambúrguer também deve estar visível */
+  .header {
+    justify-content: space-between;
+  }
+
+  .hamburger-menu {
+    display: flex; /* Sempre visível também em telas grandes */
+  }
+
+  button {
+    font-size: 16px; /* Tamanho de fonte moderado */
+    padding: 8px 20px; /* Tamanho do padding ajustado */
+  }
+}

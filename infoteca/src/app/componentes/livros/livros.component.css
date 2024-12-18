@@ -14,6 +14,8 @@
   height: 60%;
 }
 
+
+
 .book-cover {
   object-fit: cover;
   border-radius: 10px;
@@ -110,4 +112,44 @@
 .resenha-box p:first-child {
   font-size: 16px;
   font-weight: bold;
+}
+
+
+
+
+
+
+@media (max-width: 769px) {
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.book-item img{
+  width: 90%;
 }

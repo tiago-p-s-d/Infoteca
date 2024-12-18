@@ -12,7 +12,7 @@ import { ObterStatusService } from '../../services/obter_status/obter-status.ser
 
 
 export class AdicionarStatusComponent implements OnInit{
-  selectedBook: any;
+  livro_selecionado: any;
   statusOptions: any[] = []; // Opções de status
   selectedStatusId: number | undefined = undefined; // Status selecionado
   id_usuario: number = +`${localStorage.getItem('id_usuario')}`
@@ -20,8 +20,8 @@ export class AdicionarStatusComponent implements OnInit{
   constructor(private statusLivroService: AdicionarStatusService,  private selecionado: SelecionarService, private obterStatusService: ObterStatusService) { }
 
   ngOnInit(): void {
-    this.selecionado.selectedBook$.subscribe((book) => {
-      this.selectedBook = book;
+    this.selecionado.livroSelecionado$.subscribe((book) => {
+      this.livro_selecionado = book;
     });
     // Aqui você pode buscar os status disponíveis para os livros
     this.statusOptions = [
@@ -40,7 +40,7 @@ export class AdicionarStatusComponent implements OnInit{
       return;
     }
 
-    const id = this.selectedBook.id;
+    const id = this.livro_selecionado.id;
     const id_usuario = +localStorage.getItem('id_usuario')!;
 
     this.statusLivroService.adicionarStatusDoLivro(id, this.selectedStatusId, this.id_usuario).subscribe(

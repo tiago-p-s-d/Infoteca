@@ -6,7 +6,7 @@
 .logo {
   font-family: 'HarryP', sans-serif;
   font-size: 5vw; /* Ajuste o tamanho conforme necessário */
-  color: #000; /* Ajuste a cor, se necessário */
+  color: #ffffff; /* Ajuste a cor, se necessário */
 }
 
 .header{
@@ -14,4 +14,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #333;
+}
+
+@media (max-width: 769px) {
+  .logo{
+    font-size: 15vw;
+  }
 }

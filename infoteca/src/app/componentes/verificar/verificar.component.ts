@@ -24,6 +24,7 @@ export class VerificarComponent {
         this.message = response.message;
         setTimeout(() => {
           this.router.navigate(['/login']); // Redireciona para a página de login
+          
         }, 2000);
       },
       (error) => {

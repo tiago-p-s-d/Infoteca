@@ -15,7 +15,8 @@ export class ObterStatusService {
   getStatus(): Observable<any[]> {
     return this.http.get<any[]>(this.sttsUrl);  // Faz a requisição GET para pegar os status
   }
-
+    //ele vai pegar todos os livros do determinado status, como "favoritos"
+    //ele é um filtro.
     obterLivrosPorStatusPost(id_status: number): Observable<any> {
       const url = `${this.apiUrl}`; // URL do endpoint do backend
       const body = { id_status }; // Corpo da requisição POST
