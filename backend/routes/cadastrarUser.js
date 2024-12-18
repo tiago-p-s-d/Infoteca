@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'qalhowow@gmail.com',
-    pass: 'wggdlovnwridaydu',
+    pass: 'senha de aplicativo',
   },
   tls: {
     family: 4, // Força o uso de IPv4

@@ -19,6 +19,10 @@ export class LoginComponent implements OnInit{
     }
   }
 
+  irPraCadastrar(): void{
+    this.router.navigate(['/cadastrar']);  // Redireciona para a página /home
+  }
+
   fazerLogin() {
     //aqui usa o serviço "autenticar", ele passa o email e a senha por aqui
     this.autenticar.autenticar(this.email, this.senha).subscribe((response) => {

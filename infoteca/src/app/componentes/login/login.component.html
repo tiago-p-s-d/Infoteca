@@ -11,7 +11,8 @@
       <label for="senha">Senha:</label>
       <input id="senha" type="password" [(ngModel)]="senha" name="senha" required/>
     </div>
-    <button type="submit" >Entrar</button>
+    <button type="submit" class="butao">Entrar</button>
+    <button (click)="irPraCadastrar()">não tem uma conta? clique aqui</button>
   </form>
   <p>{{ mensagem }}</p>
 </div>
